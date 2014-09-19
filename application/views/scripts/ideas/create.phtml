@@ -1,0 +1,17 @@
+<script>
+//jQuery date picker for the input in the signup form
+$(function() {
+	$("#startDate").datepicker({ dateFormat: 'yy-mm-dd' });
+});
+$(function() {
+	$("#endDate").datepicker({ dateFormat:  'yy-mm-dd' });
+});
+</script>
+
+<section>
+<p>Please use the form below to add your idea.</p>
+<?php
+	$this->form->setAction($this->url());
+	echo $this->form;
+?>
+</section>

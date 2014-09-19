@@ -1,0 +1,71 @@
+/* The navigation styling: */
+nav ul li{
+	display:inline;
+}
+nav ul li a,
+nav ul li a:visited{
+	color:#565656;
+	display:block;
+	float:left;
+	font-size:22px;
+	font-weight:bold;
+	margin:5px 2px;
+	padding:7px 10px 4px;
+	text-shadow:0 1px 1px white;
+	text-transform:uppercase;
+}
+nav ul li a:hover{
+	text-decoration:none;
+	background-color:#f0f0f0;
+}
+
+/* Welcome message styling: */
+#welcome { 
+	text-align: right;
+	margin-right:20px;
+}
+
+/* Header styling: */
+header{
+	background: rgba(211, 211, 211, .6);
+	padding:20 20 20;
+	-moz-box-shadow:0 1px 1px #333333;
+	-webkit-box-shadow:0 1px 1px #333333;
+	box-shadow:0 1px 1px #333333;
+	-moz-border-radius: 15px;
+	border-radius: 20px;
+}
+header p{
+	font-size:22px;
+	position:relative;
+}
+
+/* Footer styling: */
+footer{
+	margin-bottom:30px;
+	text-align:center;
+	font-size:0.825em;
+}
+footer p{
+	margin-bottom:-2.5em;
+	position:relative;
+}
+footer a,footer a:visited{
+	color:#cccccc;
+	background-color:#213e4a;
+	display:block;
+	padding:2px 4px;
+	z-index:100;
+	position:relative;
+}
+footer a:hover{
+	text-decoration:none;
+	background-color:#142830;
+}
+footer a.by{
+	float:left;
+
+}
+a.up{
+	float:right;
+}

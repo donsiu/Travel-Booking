@@ -1,0 +1,72 @@
+<script type="text/javascript">
+$(document).ready(function() 
+	{ 
+		$("#searchTable").tablesorter();
+	}
+);
+</script>
+<!-- Count the number of matching records -->
+<aside>
+<?php 
+	$count = count($this->ideas);
+	echo "There are " . $count . " matching records.";
+?>
+<br/><br/>
+</aside>
+<section>
+<article>
+<?php 
+	if ($count > 0){
+?>
+<table id="searchTable" class="tablesorter">
+	<thead>
+		<tr>
+			<th class="titletab">Title</th>
+			<th class="tabletab">Destination</th>
+			<th class="tabletab">Travel Date</th>
+			<th class="tabletab">Author</th>
+<?php 
+	if ($this->searchOption == "Member") {
+?>
+			<th class="tabletab">Action</th>
+<?php 
+	}
+?>
+		</tr>
+	</thead>
+	<? foreach($this->ideas as $idea) { ?>
+	<tr>
+		<td class="value">
+		    <a href="/ideas/detail/id/<?= $idea->id ?>">
+<?php
+	if (strlen($idea->title) > 100) {
+        echo substr($idea->title,0,100)."...";
+    } else {
+        echo $idea->title;
+    }
+?>
+		    </a>
+		</td>
+		<td class="value"><?= $idea->destination ?></td>
+		<td class="value">
+		<?
+			$startTimeStamp = strtotime($idea->startDate);
+		   	echo date('d/m/Y', $startTimeStamp);
+		?>
+		</td>
+		<td class="value"><?= $idea->author->memberLogin ?></td>
+		
+<?php 
+	if ($this->searchOption == "Member") {
+?>
+		<td class="value"><a href="/ideas/edit/id/<?= $idea->id ?>">Edit</a> | <a href="/ideas/delete/id/<?= $idea->id ?>">Delete</a></td>
+<?php 
+	}
+?>
+	</tr>
+	<? } ?>
+</table>
+<br/>
+<? } ?>
+</article>
+</section>

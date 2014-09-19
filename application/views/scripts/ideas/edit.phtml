@@ -1,0 +1,17 @@
+<script>
+//jQuery date picker for the input in the edit ideas form
+$(function() {
+	$("#startDate").datepicker({ dateFormat: 'yy-mm-dd' });
+});
+$(function() {
+	$("#endDate").datepicker({ dateFormat:  'yy-mm-dd' });
+});
+</script>
+
+<section> 
+<p>Please update the travel idea:</p>
+<?php
+	$this->form->setAction($this->url());
+	echo $this->form;
+?>
+</section>

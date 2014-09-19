@@ -1,0 +1,95 @@
+<!DOCTYPE html> 
+<head> 
+	<title>Travel Ideas</title>
+	<link rel="stylesheet" type="text/css" href="/css/jquery-ui-1.10.4.custom.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/all.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/nav.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/form.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/tablestyle.css" media="print, projection, screen"/>
+	<script src= "/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+	<script src= "/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
+	<script src="/js/jquery.tablesorter.js" type="text/javascript"></script>
+</head>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#search_button").click(function(){
+		//Use jQuery to retrive the selected values
+		var search_content = $("#search_text").val();
+		var search_option = $("#search_type option:selected").text();
+		var is_partial = $("#partial").is(":checked");
+		
+		$("#search_result").load("/ideas/search/content/"+encodeURIComponent(search_content)+"/option/"+encodeURIComponent(search_option)+"/partial/"+is_partial+"/isDisableLayout/true");
+	});
+	//Set default cursor focus
+	$( "#search_text" ).focus();
+	//Set focus for option selection change
+	$("#search_type").change(function() {
+		$( "#search_text" ).focus();
+	});
+	$("#search_type").change(function(){
+		var temp = $("#search_type").val();
+		if(temp == "tag"){
+			$("#partial").prop('disabled', true);
+		}
+		else{
+			$("#partial").prop('disabled', false);
+		}
+	});
+});
+
+function editIdea() {
+	$("#search_result").load("/ideas/search/option/Member/isDisableLayout/true");
+}
+</script>
+
+<body>
+<!-- Start Header Tag -->
+<header>	
+	<div id="top">
+		<nav>
+			<ul id="navigation">
+			<?php
+		    	//only show logout when user is logged in
+		        $authns = new Zend_Session_Namespace('AuthNameSpace');    
+		        if(isset($authns->userId)){
+					$username = $authns->userId;
+		    ?>
+			<li><a href="/"><img src="/images/logo.png" alt="logo"></a></li>
+			<li><a href="/ideas/create">New Idea</a></li>
+			<li><a href="javascript:editIdea();">Edit My Idea</a></li>
+		    <li><a id="logout" href="/members/logout">Logout</a></li>
+		    <p id="welcome">Welcome <a href="/members/edit"><?php echo $username ?></a>!</p><br/><br/>
+		    <?php
+		    	}else{
+		    ?>			
+				<li><a href="/members/login"><img src="/images/logo.png" alt="logo"></a></li>
+				<li><a href="/members/signup">Signup</a></li>
+				<li><a href="/members/login">Login</a></li>
+				<p id="welcome">Welcome Guest!</p><br/><br/><br/><br/><br/>
+			<? } ?>
+		    <!-- Start Search Bar -->
+			<?php
+			//Show the form only when user has logged in
+			$authns = new Zend_Session_Namespace('AuthNameSpace');
+			if(isset($authns->userId)){ ?>
+			<br/>
+			<aside>
+				<form action="" name="search_form" id="search_form" method="post">
+					<select name="search_type" id="search_type">
+						<option value="dest">Destination</option>
+						<option value="tag">Tags</option>
+					</select>
+					<input type="text" name="search_text" id="search_text" value="<?=$this->escape($this->search);?>"/>
+					<input type="checkbox" name="partial" id="partial" value="partial"><text id="partial_label">Partial Match</text>
+					<input type="button" name="search_button" id="search_button" value="Find Ideas!"/>			
+				</form>
+				<br>
+			</aside>
+			<? } ?>
+		    <!-- End Search Bar -->
+		</ul>
+		</nav>
+	</div>
+</header>	
+<!-- End Header Tag -->
